@@ -9,6 +9,8 @@
  *
  *************************************************************************/
 
+//Changed the Algorithms&DataStructures assignment BST to add LCA function.
+
 //import java.util.NoSuchElementException;
 
 public class BST<Key extends Comparable<Key>, Value> {
@@ -459,6 +461,38 @@ public class BST<Key extends Comparable<Key>, Value> {
 		x.N = size(x.left) + 1 + size(x.right);
 		
 		return x;
+		
+	}
+	
+	public Key lca(Key a, Key b){
+		
+		if(root == null){
+			return null;
+		}
+		if(!contains(a)){
+			return null;
+		}
+		if(!contains(b)){
+			return null;
+		}
+		return lca(root, a, b);
+		
+	}
+	
+	private Key lca(Node n, Key a, Key b){
+		
+		int checkA = n.key.compareTo(a);
+		int checkB = n.key.compareTo(b);
+		
+		if(checkA < 0 && checkB <0){
+			return lca(n.right, a, b);
+		}
+		else if(checkA > 0 && checkB > 0){
+			return lca(n.left, a, b);
+		}
+		else{
+			return n.key;
+		}
 		
 	}
 	
